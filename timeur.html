@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronometre</title>
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: rgb(0, 0, 0);
+        }
+        #tab1{
+            position: fixed;
+            border-style: solid;
+            top: 20%;
+            height: 20%;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-color: white;
+            padding-right: 10%;
+            padding-left: 10%;
+        }
+        #hr,#min,#sec{
+            display: inline;
+            font-size: 400%;
+        }
+        #hr{
+            color:  white;
+        }
+        #min{
+            color:  white;
+        }
+        #sec{
+            color:  white;
+        }
+
+        #pause{
+            font-size: 150%;
+            font-weight: bolder;
+            top: 80%;
+            left: 50%;
+            position: fixed;
+            width: 50%;
+            display: inline;
+            height: 20%;
+        }
+        #play{
+            font-size: 150%;
+            font-weight: bolder;
+            top: 80%;
+            height: 20%;
+            left: 0;
+            position: fixed;
+            width: 50%;
+            display: inline;
+        }
+        #pause:hover{
+            background-color:rgb(0, 0, 0);
+            color: whitesmoke;
+        }
+        #play:hover{
+            background-color:rgb(0, 0, 0);
+            color: whitesmoke;
+        }
+        @keyframes blinking {
+            0%{opacity: 100%;}
+            0%{opacity: 0%;}
+            100%{opacity: 100%;}
+        }
+        .blinking{animation: blinking 500ms infinite;}
+    </style>
+</head>
+<body>
+    <table id="tab1">
+        <tr>
+            <td>
+                <div id="hr">00:</div>
+                <div id="min">00:</div>
+                <div id="sec">00</div>
+            </td>
+        </tr>
+    </table>
+    <button id="pause">Pause</button>
+    <button id="play">Play</button>
+    <script>
+        var hr = document.getElementById("hr");
+        var min = document.getElementById("min");
+        var sec = document.getElementById("sec");
+        var tab1 = document.getElementById("tab1");
+        var btn_play = document.getElementById("play");
+        var btn_pause = document.getElementById("pause");
+
+        var inc_sec = 0
+        var inc_min = 0
+        var inc_hr = 0
+        var int_id
+        btn_play.onclick = function(){
+            tab1.classList.remove("blinking")
+            setInterval(function(){
+                sec.textContent = inc_sec
+                min.textContent = inc_min+":"
+                hr.textContent = inc_hr+":"
+                inc_sec++
+                if(inc_sec == 60){
+                    inc_sec = 0
+                    inc_min ++
+                }
+                if(inc_min == 60){
+                    inc_min = 0
+                    inc_hr++
+                }
+            },1000)
+        }
+        btn_pause.onclick = function(){
+            tab1.classList.add("blinking")
+            clearInterval(1)
+        }
+    </script>
+</body>
+</html>
